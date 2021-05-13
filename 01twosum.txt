@@ -1,0 +1,50 @@
+    
+
+brute force - O(n^2)
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        n = len(nums)
+        for i in range(n):
+            for j in range(i+1,n):
+                if nums[i] + nums[j] == target:
+                    return i,j
+
+
+map - map values (guaranteed to be unique) to their indices
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        n = len(nums)
+        numToIndex = {}
+        for i in range(n):
+            numToIndex[nums[i]] = i
+        for i in range(n):
+            needed = target - nums[i]
+            if needed in numToIndex and numToIndex[needed] != i:
+                return i,numToIndex[needed]
+
+curiously enough, these both run in 36ms.  
+
+apparently python is pretty slow at creating the map. The following approach to search a split array is faster for the given test scenarios
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        for i in range(len(nums)-1):
+            b = target - nums[i]
+            if b in nums[i+1:]:
+                return i, nums.index(b,i+1)
