@@ -1,0 +1,37 @@
+new pointers (60ms)
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+   
+        anshead = ListNode(0)
+        ansrunner = anshead
+        carry = 0
+        
+        
+        while l1 or l2 or carry:
+            sum = 0
+            l1copy = l1
+            l2copy = l2
+            if l1:
+                sum += l1.val
+                l1 = l1.next
+            if l2:
+                sum += l2.val
+                l2 = l2.next
+            sum += carry
+            carry = 0
+            if sum > 9:
+                carry = 1
+                sum -= 10
+            if l1copy:
+                l1copy.val = sum
+                ansrunner.next = l1copy
+            elif l2copy:
+                l2copy.val = sum
+                ansrunner.next = l2copy
+            else:
+                ansrunner.next = ListNode(sum)
+                
+            ansrunner = ansrunner.next
+        return anshead.next
+
+existing pointers ()
