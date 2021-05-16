@@ -1,0 +1,82 @@
+using two pointers and ascii value array as a map in python (middle)
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s) < 2:
+            return len(s)
+        test = {[False for i in range(256)]}
+        p1 = 0
+        p2 = 1
+        test[ord(s[p1])] = True
+        n = len(s)
+
+        biggest = 1
+        while p2 < n:
+            if test[ord(s[p2])]:
+            
+                while test[ord(s[p2])]:
+                    test[ord(s[p1])] = False
+                    p1 += 1
+            test[ord(s[p2])] = True
+            biggest = max(biggest, p2-p1+1)
+            p2+=1
+        return biggest
+    
+using twopointer and set in python - faster (somehow)
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s) < 2:
+            return len(s)
+        test = set()
+        p1 = 0
+        p2 = 1
+        test.add(s[p1])
+        n = len(s)
+
+        biggest = 1
+        while p2 < n:
+            if s[p2] in test:
+            
+                while s[p2] in test:
+                    test.remove(s[p1])
+                    p1 += 1
+            test.add(s[p2])  
+            biggest = max(biggest, p2-p1+1)
+            p2+=1
+        return biggest
+
+using twopointer and map in python - slow
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s) < 2:
+            return len(s)
+        test = {}
+        p1 = 0
+        p2 = 1
+        test[s[p1]] = 1
+        n = len(s)
+
+        biggest = 1
+        while p2 < n:
+            if s[p2] in test and test[s[p2]] == 1:
+            
+                while test[s[p2]] == 1:
+                    test[s[p1]] = 0
+                    p1 += 1
+            test[s[p2]] = 1  
+            biggest = max(biggest, p2-p1+1)
+            p2+=1
+        return biggest
