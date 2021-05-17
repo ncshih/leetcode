@@ -1,0 +1,79 @@
+using string reconstruction.  Slow.  2208ms and 13.8mb
+
+class Solution(object):
+    def longestPalindrome(self, s):
+     
+    
+        def odd(i,s):
+            l = i
+            r = i
+            ans = s[i]
+            while l >= 0 and r < len(s):
+                if s[l] == s[r]:
+                    if l != r:
+                        ans = s[l] + ans + s[r]
+                    l -= 1
+                    r += 1
+                else:
+                    break
+            return ans
+    
+                    
+        def even(i,s):
+            l = i 
+            r = i+1 
+            ans = ""
+            while l >= 0 and r < len(s):
+                if s[l] == s[r]:
+                    ans = s[l] + ans + s[r]
+                    l -= 1
+                    r += 1
+                else:
+                    break
+            return ans
+                    
+        if len(s) < 2:
+            return s
+        longest = ""
+        for i in range(len(s)):
+            longestodd = odd(i,s)
+            if len(longestodd) > len(longest):
+                longest = longestodd
+            longesteven = even(i,s)
+            if len(longesteven) > len(longest):
+                longest = longesteven
+            print(longestodd, longesteven)
+        return longest
+        
+using substring.  1020ms, 13.8mb
+class Solution(object):
+    def longestPalindrome(self, s):
+     
+    
+        def odd(i,s):
+            l = i
+            r = i
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                l-=1
+                r+=1
+            return s[l+1:r]
+                    
+        def even(i,s):
+            l = i 
+            r = i+1 
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                l-=1
+                r+=1
+            return s[l+1:r]
+        if len(s) < 2:
+            return s
+        longest = ""
+        for i in range(len(s)):
+            longestodd = odd(i,s)
+            if len(longestodd) > len(longest):
+                longest = longestodd
+            longesteven = even(i,s)
+            if len(longesteven) > len(longest):
+                longest = longesteven
+        return longest
+        
